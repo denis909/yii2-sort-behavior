@@ -8,9 +8,9 @@ use Yii;
 class SortBehavior extends \yii\base\Behavior
 {
 
-	public $attribute = 'sort';
+    public $attribute = 'sort';
 
-	public $defaultValue = null;
+    public $defaultValue = null;
 
     public function events()
     {
@@ -25,10 +25,10 @@ class SortBehavior extends \yii\base\Behavior
     
     public function afterFind($event)
     {
-		if ($event->sender->{$this->attribute} === null)
-		{
-			return;
-		}
+        if ($event->sender->{$this->attribute} === null)
+        {
+            return;
+        }
 
         if (strpos($event->sender->{$this->attribute}, '.') !== false)
         {
@@ -40,30 +40,30 @@ class SortBehavior extends \yii\base\Behavior
 
     public function beforeSave($event)
     {
-		if (!$event->sender->isAttributeSafe($this->attribute))
-		{
-			return;
-		}
+        if (!$event->sender->isAttributeSafe($this->attribute))
+        {
+            return;
+        }
 
-		if ($event->sender->{$this->attribute} === '')
-		{
-			$event->sender->{$this->attribute} = $this->defaultValue;
-		}
-	}
+        if ($event->sender->{$this->attribute} === '')
+        {
+            $event->sender->{$this->attribute} = $this->defaultValue;
+        }
+    }
 
     public function afterSave($event)
-    {	
-		if (!$event->sender->isAttributeSafe($this->attribute))
-		{
-			return;
-		}
+    {   
+        if (!$event->sender->isAttributeSafe($this->attribute))
+        {
+            return;
+        }
 
-		if ($event->sender->{$this->attribute})
-		{
-			return;
-		}
-		
-		$event->sender->{$this->attribute} = $id;
+        if ($event->sender->{$this->attribute})
+        {
+            return;
+        }
+        
+        $event->sender->{$this->attribute} = $id;
 
         $event->sender->updateAttributes([$this->attribute]);
     }
