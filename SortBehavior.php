@@ -47,7 +47,7 @@ class SortBehavior extends \yii\base\Behavior
             return;
         }
         
-        $event->sender->{$this->attribute} = $id;
+        $event->sender->{$this->attribute} = $event->sender->primaryKey;
 
         $event->sender->updateAttributes([$this->attribute]);
     }
