@@ -18,24 +18,8 @@ class SortBehavior extends \yii\base\Behavior
             ActiveRecord::EVENT_BEFORE_INSERT => 'beforeSave',
             ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeSave',
             ActiveRecord::EVENT_AFTER_INSERT => 'afterSave',
-            ActiveRecord::EVENT_AFTER_UPDATE => 'afterSave',
-            ActiveRecord::EVENT_AFTER_FIND => 'afterFind'
+            ActiveRecord::EVENT_AFTER_UPDATE => 'afterSave'
         ];
-    }
-    
-    public function afterFind($event)
-    {
-        if ($event->sender->{$this->attribute} === null)
-        {
-            return;
-        }
-
-        if (strpos($event->sender->{$this->attribute}, '.') !== false)
-        {
-            $event->sender->{$this->attribute} = rtrim($event->sender->{$this->attribute}, '0');
-        
-            $event->sender->{$this->attribute} = rtrim($event->sender->{$this->attribute}, '.');
-        }
     }
 
     public function beforeSave($event)
